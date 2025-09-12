@@ -1,0 +1,37 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 2000 1500'>
+	<rect fill='#000000' width='200' height='150'/>
+	<defs>
+		<ellipse fill='none' stroke-width='65.7' stroke-opacity='0.44' id='a' rx='600' ry='450'/>
+	</defs>
+	<g  transform='' style='transform-origin:center'>
+		<g  transform='rotate(10.8 0 0)' style='transform-origin:center'>
+			<g  transform='rotate(-91.2 0 0)' style='transform-origin:center'>
+				<g transform='translate(1000 750)'>
+					<use  stroke='#27002B' href='#a' transform='rotate(-34.2 0 0) scale(0.658)'/>
+					<use  stroke='#340331' href='#a' transform='rotate(-28.5 0 0) scale(0.715)'/>
+					<use  stroke='#420436' href='#a' transform='rotate(-22.8 0 0) scale(0.772)'/>
+					<use  stroke='#51063b' href='#a' transform='rotate(-17.1 0 0) scale(0.829)'/>
+					<use  stroke='#5f093f' href='#a' transform='rotate(-11.4 0 0) scale(0.886)'/>
+					<use  stroke='#6e0d42' href='#a' transform='rotate(-5.7 0 0) scale(0.943)'/>
+					<use  stroke='#7c1244' href='#a' transform=''/>
+					<use  stroke='#8b1945' href='#a' transform='rotate(5.7 0 0) scale(1.057)'/>
+					<use  stroke='#992045' href='#a' transform='rotate(11.4 0 0) scale(1.114)'/>
+					<use  stroke='#a62945' href='#a' transform='rotate(17.1 0 0) scale(1.171)'/>
+					<use  stroke='#b33244' href='#a' transform='rotate(22.8 0 0) scale(1.228)'/>
+					<use  stroke='#c03c42' href='#a' transform='rotate(28.5 0 0) scale(1.285)'/>
+					<use  stroke='#cb4740' href='#a' transform='rotate(34.2 0 0) scale(1.342)'/>
+					<use  stroke='#d5523c' href='#a' transform='rotate(39.9 0 0) scale(1.399)'/>
+					<use  stroke='#df5f39' href='#a' transform='rotate(45.6 0 0) scale(1.456)'/>
+					<use  stroke='#e76b34' href='#a' transform='rotate(51.3 0 0) scale(1.513)'/>
+					<use  stroke='#ef792f' href='#a' transform='rotate(57 0 0) scale(1.57)'/>
+					<use  stroke='#f58729' href='#a' transform='rotate(62.7 0 0) scale(1.627)'/>
+					<use  stroke='#fa9522' href='#a' transform='rotate(68.4 0 0) scale(1.684)'/>
+					<use  stroke='#fda31a' href='#a' transform='rotate(74.1 0 0) scale(1.741)'/>
+					<use  stroke='#ffb210' href='#a' transform='rotate(79.8 0 0) scale(1.798)'/>
+					<use  stroke='#ffc106' href='#a' transform='rotate(85.5 0 0) scale(1.855)'/>
+					<use  stroke='#FFD000' href='#a' transform='rotate(91.2 0 0) scale(1.912)'/>
+				</g>
+			</g>
+		</g>
+	</g>
+</svg>
