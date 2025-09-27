@@ -1,12 +1,16 @@
-﻿namespace battelWar
+﻿
+using battelWar.ModelLogic;
+
+namespace battelWar
 {
     public partial class App : Application
     {
         public App()
         {
             InitializeComponent();
-
-            MainPage = new AppShell();
+            User user = new();
+            Page page = user.IsRegistered ? new View.LoginV() : new View.RegisterV();
+            MainPage = page;
         }
     }
 }
