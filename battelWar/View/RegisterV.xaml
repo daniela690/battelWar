@@ -7,6 +7,9 @@
              x:DataType="vm:RegisterVM">
     <VerticalStackLayout Spacing="25" Margin="10">
         <Entry  Placeholder="{x:Static m:Strings.Name}" Text="{Binding Name}"/>
+        <Entry  Placeholder="{x:Static m:Strings.Password}" Text="{Binding Password}"/>
+        <Entry  Placeholder="{x:Static m:Strings.Email}" Text="{Binding Email}"/>
+
         <Button Text="{x:Static m:Strings.Register}" Command="{Binding RegisterCommand}"/>
     </VerticalStackLayout>
 </ContentPage>

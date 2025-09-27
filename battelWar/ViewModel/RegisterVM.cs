@@ -26,6 +26,25 @@ namespace battelWar.ViewModel
                 (RegisterCommand as Command)?.ChangeCanExecute();
             }
         }
+        public string Password
+        {
+            get => user.Password;
+            set
+            {
+                user.Password = value;
+                (RegisterCommand as Command)?.ChangeCanExecute();
+            }
+        }
+        public string Email
+        {
+            get => user.Email;
+            set
+            {
+                user.Email = value;
+                (RegisterCommand as Command)?.ChangeCanExecute();
+            }
+        }
+
         public RegisterVM()
         {
             RegisterCommand = new Command(Register, CanRegister);

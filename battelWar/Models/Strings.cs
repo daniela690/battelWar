@@ -3,6 +3,9 @@
     internal static class Strings
     {
         public const string Name = "Name";
+        public const string Password = "Password";
+        public const string Email = "Email";
+
         public const string Register = "Register";
         public const string LoginTitle = "Login";
         public const string UserNameLabel = "Username:";
