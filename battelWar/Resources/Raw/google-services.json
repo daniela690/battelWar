@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "987064227699",
+    "project_id": "warship-4c525",
+    "storage_bucket": "warship-4c525.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:987064227699:android:de74c2283e88278d8e1706",
+        "android_client_info": {
+          "package_name": "com.meitar.battelwar"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAw61WIkZGo42tl6llrAFNgLW9F3Iegdto"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

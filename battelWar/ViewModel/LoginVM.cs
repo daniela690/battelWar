@@ -7,7 +7,7 @@ namespace battelWar.ViewModel
 {
     internal partial class LoginVM : ObservableObject
     {
-        private readonly UserLogin user = new();
+        private readonly User user = new();
         public ICommand LoginCommand { get; }
         public ICommand ToggleIsPasswordCommand { get; }
         public bool IsBusy { get; set; } = false;

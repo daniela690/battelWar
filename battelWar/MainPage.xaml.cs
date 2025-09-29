@@ -1,18 +1,11 @@
-﻿using battelWar.ViewModel;
-
-namespace RegisterApp
+﻿namespace battelWar.ViewModels
 {
     public partial class MainPage : ContentPage
     {
         public MainPage()
         {
-            InitializeComponent();
+            InitializeComponent(); 
             
-        }
-
-        private void InitializeComponent()
-        {
-            
-        }
+        } 
     }
 }

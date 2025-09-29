@@ -1,6 +1,6 @@
 ﻿
 using battelWar.ModelLogic;
-
+using battelWar.View;
 namespace battelWar
 {
     public partial class App : Application
@@ -9,7 +9,7 @@ namespace battelWar
         {
             InitializeComponent();
             User user = new();
-            Page page = user.IsRegistered ? new View.LoginV() : new View.RegisterV();
+            Page page = user.IsRegistered ? new LoginV() : new RegisterV();
             MainPage = page;
         }
     }
