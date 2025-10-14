@@ -23,6 +23,10 @@ namespace battelWar.ModelLogic
             Preferences.Set(Keys.EmailKey, Email);
             Preferences.Set(Keys.PasswordKey, Password);
         }
+        public override bool IsValid()
+        {
+            return !string.IsNullOrWhiteSpace(Name) && !string.IsNullOrWhiteSpace(Password) && !string.IsNullOrWhiteSpace(Email);
+        }
 
         public User()
         {

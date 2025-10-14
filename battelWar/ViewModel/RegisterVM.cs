@@ -1,20 +1,28 @@
 ﻿using battelWar.ModelLogic;
+using battelWar.Models;
 using System.Windows.Input;
 namespace battelWar.ViewModel
 {
-    internal class RegisterVM
+    internal class RegisterVM:ObservableObject
     {
         private readonly User user = new();
         public ICommand RegisterCommand { get; }
+        public ICommand ToggleIsPasswordCommand { get; }
+        public bool IsBusy { get; set; } = false;
 
-        public bool CanRegister()
+        private bool CanRegister(object arg)
         {
-            return !string.IsNullOrWhiteSpace(user.Name);
+            return user.IsValid();
         }
 
-        private void Register()
+        private void Register(object obj)
         {
             user.Register();
+        }
+        private void ToggleIsPassword()
+        {
+            IsPassword = !IsPassword;
+            OnPropertyChanged(nameof(IsPassword));
         }
 
         public string Name
@@ -22,8 +30,11 @@ namespace battelWar.ViewModel
             get => user.Name;
             set
             {
-                user.Name = value;
-                (RegisterCommand as Command)?.ChangeCanExecute();
+                if (user.Name != value)
+                {
+                    user.Name = value;
+                    (RegisterCommand as Command)?.ChangeCanExecute();
+                }
             }
         }
         public string Password
@@ -31,8 +42,11 @@ namespace battelWar.ViewModel
             get => user.Password;
             set
             {
-                user.Password = value;
-                (RegisterCommand as Command)?.ChangeCanExecute();
+                if (user.Password != value)
+                {
+                    user.Password = value;
+                    (RegisterCommand as Command)?.ChangeCanExecute();
+                }
             }
         }
         public string Email
@@ -40,15 +54,20 @@ namespace battelWar.ViewModel
             get => user.Email;
             set
             {
-                user.Email = value;
-                (RegisterCommand as Command)?.ChangeCanExecute();
+                if (user.Email != value)
+                {
+                    user.Email = value;
+                    (RegisterCommand as Command)?.ChangeCanExecute();
+                }
             }
         }
+        public bool IsPassword { get; set; } = true;
 
         public RegisterVM()
         {
             RegisterCommand = new Command(Register, CanRegister);
+            ToggleIsPasswordCommand = new Command(ToggleIsPassword);
         }
-    
+
     }
 }

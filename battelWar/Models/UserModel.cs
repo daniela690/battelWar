@@ -1,4 +1,5 @@
-﻿using battelWar.ModelLogic;
+﻿
+using battelWar.ModelsLogic;
 namespace battelWar.Models
 {
     internal abstract class UserModel
@@ -11,5 +12,6 @@ namespace battelWar.Models
         public abstract void Register();
         public string UserName { get; set; } = string.Empty;
         public abstract bool Login();
+        public abstract bool IsValid();
     }
 }
