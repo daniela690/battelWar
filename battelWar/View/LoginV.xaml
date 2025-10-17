@@ -21,7 +21,7 @@
             FontFamily="MaterialSymbols"
             FontSize="32"
             HorizontalOptions="Center"
-            Text="{StaticResource IconVerified_user}" />
+             Text="{StaticResource IconVerified_user}" />
         <Border
             Padding="10"
             Stroke="Olive"

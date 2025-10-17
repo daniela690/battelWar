@@ -67,7 +67,18 @@ namespace battelWar.ViewModel
         {
             RegisterCommand = new Command(Register, CanRegister);
             ToggleIsPasswordCommand = new Command(ToggleIsPassword);
+            user.OnAuthComplete += OnAuthComplete;
         }
 
+        private void OnAuthComplete(object? sender, EventArgs e)
+        {
+           if(Application.Current!=null)
+            {
+                MainThread.InvokeOnMainThreadAsync(() =>
+                {
+                    Application.Current.MainPage = new AppShell();
+                });
+            }
+        }
     }
 }

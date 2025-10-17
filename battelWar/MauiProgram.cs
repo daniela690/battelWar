@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using CommunityToolkit.Maui;
+using Microsoft.Extensions.Logging;
 
 namespace battelWar
 {
@@ -6,9 +7,10 @@ namespace battelWar
     {
         public static MauiApp CreateMauiApp()
         {
-            var builder = MauiApp.CreateBuilder();
+           MauiAppBuilder builder = MauiApp.CreateBuilder();
             builder
-                .UseMauiApp<App>()
+            .UseMauiApp<App>()
+            .UseMauiCommunityToolkit()        
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

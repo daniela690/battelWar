@@ -18,6 +18,6 @@
         public const string LoginFailureMessage = "Login failed. Please try again.";
         public const string UsernameRequiredMessage = "Username is required.";
         public const string PasswordRequiredMessage = "Password is required.";
-    
+       
     }
 }
