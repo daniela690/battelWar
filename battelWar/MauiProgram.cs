@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
+using Microsoft.Maui.Hosting;
 
 namespace battelWar
 {
@@ -14,7 +15,8 @@ namespace battelWar
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold"); 
+                    fonts.AddFont("MaterialSymbolsOutlined.ttf", "MaterialSymbols");
                 });
 
 #if DEBUG

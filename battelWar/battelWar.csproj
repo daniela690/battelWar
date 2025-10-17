@@ -116,9 +116,6 @@
 	  <Compile Update="Resources\Styles\MyStyles.xaml.cs">
 	    <DependentUpon>MyStyles.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="View\LoginV.xaml.cs">
-	    <DependentUpon>LoginV.xaml</DependentUpon>
-	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -131,7 +128,7 @@
 	  <MauiXaml Update="Resources\Styles\MyStyles.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\LoginV.xaml">
+	  <MauiXaml Update="View\Login.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\RegisterV.xaml">

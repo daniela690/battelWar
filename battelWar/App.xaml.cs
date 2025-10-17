@@ -9,7 +9,7 @@ namespace battelWar
         {
             InitializeComponent();
             User user = new();
-            Page page = user.IsRegistered ? new LoginV() : new RegisterV();
+            Page page = user.IsRegistered ? new Login() : new RegisterV();
             MainPage = page;
         }
     }
