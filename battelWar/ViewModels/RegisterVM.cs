@@ -1,7 +1,7 @@
 ﻿using battelWar.ModelLogic;
 using battelWar.Models;
 using System.Windows.Input;
-namespace battelWar.ViewModel
+namespace battelWar.ViewModels
 {
     internal class RegisterVM:ObservableObject
     {

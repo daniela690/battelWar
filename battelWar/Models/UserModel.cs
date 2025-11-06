@@ -1,4 +1,5 @@
 ﻿
+using battelWar.ModelLogic;
 using battelWar.ModelsLogic;
 namespace battelWar.Models
 {

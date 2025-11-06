@@ -1,9 +1,8 @@
 ﻿using battelWar.ModelLogic;
 using battelWar.Models;
-
 using System.Windows.Input;
 
-namespace battelWar.ViewModel
+namespace battelWar.ViewModels
 {
     internal partial class LoginVM : ObservableObject
     {
@@ -11,12 +10,12 @@ namespace battelWar.ViewModel
         public ICommand LoginCommand { get; }
         public ICommand ToggleIsPasswordCommand { get; }
         public bool IsBusy { get; set; } = false;
-        public string UserName
+        public string Email
         {
-            get => user.UserName;
+            get => user.Email;
             set
             {
-                user.UserName = value;
+                user.Email = value;
                 (LoginCommand as Command)?.ChangeCanExecute();
             }
         }
@@ -33,8 +32,20 @@ namespace battelWar.ViewModel
 
         public LoginVM()
         {
-            LoginCommand = new Command(async () => await Login(), CanLogin);
+            LoginCommand = new Command( Login, CanLogin);
             ToggleIsPasswordCommand = new Command(ToggleIsPassword);
+            user.OnAuthComplete += OnAuthComplete;
+        }
+
+        private void OnAuthComplete(object? sender, EventArgs e)
+        {
+            if (Application.Current != null)
+            {
+                MainThread.InvokeOnMainThreadAsync(() =>
+                {
+                    Application.Current.MainPage = new AppShell();
+                });
+            }
         }
 
         private void ToggleIsPassword()
@@ -43,18 +54,16 @@ namespace battelWar.ViewModel
             OnPropertyChanged(nameof(IsPassword));
         }
 
-        private async Task Login()
+        private void Login()
         {
             IsBusy = true;
             OnPropertyChanged(nameof(IsBusy));
-            await Task.Delay(5000);
-            IsBusy = false;
-            OnPropertyChanged(nameof(IsBusy));
+            user.Login();
         }
 
         private bool CanLogin()
         {
-            return (!string.IsNullOrEmpty(UserName) && !string.IsNullOrEmpty(Password));
+            return (!string.IsNullOrEmpty(Email) && !string.IsNullOrEmpty(Password));
         }
 
 

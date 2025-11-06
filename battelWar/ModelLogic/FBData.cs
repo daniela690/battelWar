@@ -4,14 +4,11 @@ using Firebase.Auth.Providers;
 using Plugin.CloudFirestore;
 
 
-namespace battelWar.ModelsLogic
+namespace battelWar.ModelLogic
 {
-    class FBData : FBDataModel
+    partial class FBData : FBDataModel
     {
-        public FBData()
-        {
-
-        }
+        
         public override async void CreateUserWithEmailAndPasswordAsync(string email, string password, string name, Action<System.Threading.Tasks.Task> OnComplete)
         {
             await facl.CreateUserWithEmailAndPasswordAsync(email, password, name).ContinueWith(OnComplete);
@@ -20,22 +17,39 @@ namespace battelWar.ModelsLogic
         {
             await facl.SignInWithEmailAndPasswordAsync(email, password).ContinueWith(OnComplete);
         }
-        public override string DisplayName
+        public override string SetDocument(object obj, string collectonName, string id, Action<System.Threading.Tasks.Task> OnComplete)
         {
-            get
-            {
-                string dn = string.Empty;
-                if (facl.User != null)
-                    dn = facl.User.Info.DisplayName;
-                return dn;
-            }
+            IDocumentReference dr = string.IsNullOrEmpty(id) ? fs.Collection(collectonName).Document() : fs.Collection(collectonName).Document(id);
+            dr.SetAsync(obj).ContinueWith(OnComplete);
+            return dr.Id;
         }
-        public override string UserId
+        public override IListenerRegistration AddSnapshotListener(string collectonName, Plugin.CloudFirestore.QuerySnapshotHandler OnChange)
         {
-            get
+            ICollectionReference cr = fs.Collection(collectonName);
+            return cr.AddSnapshotListener(OnChange);
+        }
+        public override IListenerRegistration AddSnapshotListener(string collectonName, string id, Plugin.CloudFirestore.DocumentSnapshotHandler OnChange)
+        {
+            IDocumentReference cr = fs.Collection(collectonName).Document(id);
+            return cr.AddSnapshotListener(OnChange);
+        }
+        public async void GetDocumentsWhereEqualTo(string collectonName, string fName, object fValue, Action<IQuerySnapshot> OnComplete)
+        {
+            ICollectionReference cr = fs.Collection(collectonName);
+            IQuerySnapshot qs = await cr.WhereEqualsTo(fName, fValue).GetAsync();
+            OnComplete(qs);
+        }
+
+       
+        public override string IdentifyFireBaseError(Task task)
+        {
+            string message = task!.Exception!.InnerException!.Message!;
+            int reasonIndex = message.LastIndexOf("Reason:");
+            if (reasonIndex >= 0)
             {
-                return facl.User.Uid;
+                message = message[(reasonIndex + "Reason: ".Length)..];
             }
+            return message;
         }
     }
 }

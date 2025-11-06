@@ -1,4 +1,4 @@
-using battelWar.ViewModel;
+using battelWar.ViewModels;
 
 namespace battelWar.View;
 

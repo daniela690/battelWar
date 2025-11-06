@@ -4,7 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:m="clr-namespace:battelWar.Models"
-    xmlns:vm="clr-namespace:battelWar.ViewModel"
+    xmlns:vm="clr-namespace:battelWar.ViewModels"
     x:DataType="vm:LoginVM"
     IsBusy="{Binding IsBusy}">
     <VerticalStackLayout
@@ -30,9 +30,9 @@
             <Entry
                 ClearButtonVisibility="WhileEditing"
                 FontSize="18"
-                Placeholder="{x:Static m:Strings.UserNameLabel}"
+                Placeholder="{x:Static m:Strings.Email}"
                 ReturnType="Next"
-                Text="{Binding UserName}"
+                Text="{Binding Email}"
                 TextColor="Blue" />
         </Border>
         <Border

@@ -8,12 +8,17 @@ namespace battelWar.Models
     abstract class FBDataModel
     {
         protected FirebaseAuthClient facl;
-        protected IFirestore fdb;
-        public abstract string DisplayName { get; }
-        public abstract string UserId { get; }
+        protected IFirestore fs;
+        public string DisplayName => facl != null && facl.User != null ? facl.User.Info.DisplayName : string.Empty;
+        public string UserId => facl != null ? facl.User.Uid : string.Empty;
+      
+        public abstract string IdentifyFireBaseError(Task task);
         public abstract void CreateUserWithEmailAndPasswordAsync(string email, string password, string name, Action<System.Threading.Tasks.Task> OnComplete);
         public abstract void SignInWithEmailAndPasswordAsync(string email, string password, Action<System.Threading.Tasks.Task> OnComplete);
-         
+        public abstract string SetDocument(object obj, string collectonName, string id, Action<System.Threading.Tasks.Task> OnComplete);
+        public abstract IListenerRegistration AddSnapshotListener(string collectonName, Plugin.CloudFirestore.QuerySnapshotHandler OnChange);
+        public abstract IListenerRegistration AddSnapshotListener(string collectonName, string id, Plugin.CloudFirestore.DocumentSnapshotHandler OnChange);
+
         public FBDataModel()
         {
             FirebaseAuthConfig fac = new()
@@ -23,7 +28,7 @@ namespace battelWar.Models
                 Providers = [new EmailProvider()]
             };
             facl = new FirebaseAuthClient(fac);
-            fdb = CrossCloudFirestore.Current.Instance;
+            fs = CrossCloudFirestore.Current.Instance;
         }
     }
 }

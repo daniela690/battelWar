@@ -1,0 +1,23 @@
+﻿
+using battelWar.ModelLogic;
+using battelWar.ModelsLogic;
+using Plugin.CloudFirestore;
+using System.Collections.ObjectModel;
+
+
+namespace battelWar.Models
+{
+    internal class GamesModel
+    {
+        protected FBData fbd = new();
+        protected IListenerRegistration? ilr;
+
+        public bool IsBusy { get; set; }
+        public ObservableCollection<Game>? GamesList { get; set; } = [];
+        public ObservableCollection<GameSize>? GameSizes { get; set; } = [new GameSize(3), new GameSize(4), new GameSize(5)];
+        public GameSize SelectedGameSize { get; set; } = new GameSize();
+
+        public EventHandler<bool>? OnGameAdded;
+        public EventHandler? OnGamesChanged;
+    }
+}

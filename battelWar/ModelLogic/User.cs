@@ -1,13 +1,16 @@
 ﻿using battelWar.Models;
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
-using Firebase.Auth;
-using System.Text.Json;
 
 namespace battelWar.ModelLogic
 {
     internal class User : UserModel
     {
+        public User()
+        {
+            Name = Preferences.Get(Keys.NameKey, string.Empty);
+        }
+
         public override void Register()
         {
             fbd.CreateUserWithEmailAndPasswordAsync(Email, Password, Name, OnComplete);
@@ -24,7 +27,6 @@ namespace battelWar.ModelLogic
             else if (task.Exception != null)
             {
                 string msg = IdentifyFireBaseError(task);
-                OnAuthComplete?.Invoke(this, EventArgs.Empty);
                 ShowAlert(msg);
             }
             else
@@ -42,20 +44,13 @@ namespace battelWar.ModelLogic
         private void SaveToPreferences()
         {
             Preferences.Set(Keys.NameKey, Name);
-            Preferences.Set(Keys.EmailKey, Email);
-            Preferences.Set(Keys.PasswordKey, Password);
         }
         public override bool IsValid()
         {
             return !string.IsNullOrWhiteSpace(Name) && !string.IsNullOrWhiteSpace(Password) && !string.IsNullOrWhiteSpace(Email);
         }
 
-        public User()
-        {
-            Name = Preferences.Get(Keys.NameKey, string.Empty);
-            Password = Preferences.Get(Keys.PasswordKey, string.Empty);
-            Email = Preferences.Get(Keys.EmailKey, string.Empty);
-        }
+        
         public override void Login()
         {
             fbd.SignInWithEmailAndPasswordAsync(Email, Password, OnComplete);
