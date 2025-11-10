@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="battelWar.View.HomePage"
+             Title="HomePage"
+             xmlns:m="clr-namespace:battelWar.Models"
+             xmlns:vm="clr-namespace:battelWar.ViewModels"
+             x:DataType="vm:HomePageVM">
+    <Grid>
+        <BoxView Color="Beige" />
+        <VerticalStackLayout Padding="30,80" Spacing="40">
+
+            <Label
+             Text="{x:Static m:Strings.Welcome}"
+             Style="{StaticResource WelcomeLabelStyle}" />
+
+            <Button
+             Text="{x:Static m:Strings.LoginButton}"
+             Command="{Binding NavToLoginCommand}"
+             Style="{StaticResource MainButtonStyle}" />
+
+            <Button
+             Text="{x:Static m:Strings.Register}"
+             Command="{Binding NavToRegisterCommand}"
+             Style="{StaticResource MainButtonStyle}" />
+
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

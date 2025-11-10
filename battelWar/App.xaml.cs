@@ -8,9 +8,9 @@ namespace battelWar
         public App()
         {
             InitializeComponent();
-            User user = new();
-            Page page = user.IsRegistered ? new Login() : new RegisterV();
-            MainPage = page;
+            //User user = new();
+            //Page page = user.IsRegistered ? new Login() : new RegisterV();
+            MainPage = new HomePage();
         }
     }
 }

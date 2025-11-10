@@ -9,7 +9,7 @@ namespace battelWar.ViewModels
         private readonly User user = new();
         public ICommand LoginCommand { get; }
         public ICommand ToggleIsPasswordCommand { get; }
-        public bool IsBusy { get; set; } = false;
+        public bool IsBusy { get; set; } = true;
         public string Email
         {
             get => user.Email;
