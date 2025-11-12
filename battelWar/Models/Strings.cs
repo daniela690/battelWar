@@ -17,6 +17,8 @@
         public const string GameSize = "Game Size";
         public const string SelectGameSize = "Select Game Size";
         public const string Welcome = "Welcome";
-       
+        public const string Login = "Login";
+        public static string GameDeleted= "Deleted";
+        public const string JoinGameErr = "Error joining game";
     }
 }

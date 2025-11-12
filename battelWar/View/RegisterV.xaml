@@ -4,6 +4,7 @@
              xmlns:vm="clr-namespace:battelWar.ViewModels"
              xmlns:m="clr-namespace:battelWar.Models"
              x:Class="battelWar.View.RegisterV"
+              BackgroundColor="#faaffa"
              x:DataType="vm:RegisterVM">
     <VerticalStackLayout Spacing="25" Margin="10">
         <Entry  Placeholder="{x:Static m:Strings.Name}" Text="{Binding Name}"/>

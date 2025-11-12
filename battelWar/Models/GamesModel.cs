@@ -17,6 +17,7 @@ namespace battelWar.Models
         public ObservableCollection<GameSize>? GameSizes { get; set; } = [new GameSize(3), new GameSize(4), new GameSize(5)];
         public GameSize SelectedGameSize { get; set; } = new GameSize();
 
+        public Game SelectedGame {  get; set; } = new Game();
         public EventHandler<bool>? OnGameAdded;
         public EventHandler? OnGamesChanged;
     }

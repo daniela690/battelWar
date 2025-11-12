@@ -1,9 +1,15 @@
-﻿using battelWar.Models;
+﻿using battelWar.ModelLogic;
+using battelWar.Models;
+using battelWar.ModelsLogic;
+using battelWar.View;
+using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
 using Microsoft.Maui.Controls;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows.Input;
-using battelWar.ModelsLogic;
-using TicTacTow25.ModelsLogic;
+
+
 
 namespace battelWar.ViewModels
 {
@@ -15,6 +21,24 @@ namespace battelWar.ViewModels
         public ObservableCollection<GameSize>? GameSizes { get => games.GameSizes; set => games.GameSizes = value; }
         public GameSize SelectedGameSize { get => games.SelectedGameSize; set => games.SelectedGameSize = value; }
         public ObservableCollection<Game>? GamesList => games.GamesList;
+        public Game? SelectGameDetails
+        {
+            get => games.SelectedGame;
+
+            set
+            {
+                if (value != null)
+                {
+                    games.SelectedGame = value;
+
+                    Toast.Make(games.SelectedGame.HostName, ToastDuration.Long).Show();
+                    MainThread.InvokeOnMainThreadAsync(() =>
+                    {
+                        Shell.Current.Navigation.PushAsync(new GamePage(value), true);
+                    });
+                }
+            }
+        }
 
         private void AddGame()
         {
@@ -46,5 +70,6 @@ namespace battelWar.ViewModels
         {
             games.RemoveSnapshotListener();
         }
+
     }
 }

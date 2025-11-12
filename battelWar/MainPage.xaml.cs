@@ -9,6 +9,7 @@ namespace battelWar
         {
             InitializeComponent();
             BindingContext = mpVM;
+
         }
         protected override void OnAppearing()
         {
@@ -21,5 +22,8 @@ namespace battelWar
             mpVM.RemoveSnapshotListener();
             base.OnDisappearing();
         }
+
+
     }
 }
+

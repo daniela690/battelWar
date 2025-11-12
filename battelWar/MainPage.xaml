@@ -36,7 +36,7 @@
                 HorizontalOptions="Fill"
                 Text="{x:Static m:Strings.AddGame}" />
         </Grid>
-        <ListView ItemsSource="{Binding GamesList}">
+        <ListView ItemsSource="{Binding GamesList}"   SelectedItem="{Binding SelectGameDetails}">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="m:GameModel">
                     <ViewCell>
@@ -61,6 +61,7 @@
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
+            
         </ListView>
     </VerticalStackLayout>
 </ContentPage>

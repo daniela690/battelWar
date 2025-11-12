@@ -5,25 +5,52 @@
              Title="HomePage"
              xmlns:m="clr-namespace:battelWar.Models"
              xmlns:vm="clr-namespace:battelWar.ViewModels"
-             x:DataType="vm:HomePageVM">
-    <Grid>
-        <BoxView Color="Beige" />
-        <VerticalStackLayout Padding="30,80" Spacing="40">
-
+             x:DataType="vm:HomePageVM"
+             BackgroundColor="#89bcfa">
+    
+         <Grid RowSpacing="0" ColumnSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
+        <VerticalStackLayout Padding="30,80" Spacing="40" HorizontalOptions="Center" VerticalOptions="Start">
             <Label
-             Text="{x:Static m:Strings.Welcome}"
-             Style="{StaticResource WelcomeLabelStyle}" />
+            Text="{x:Static m:Strings.Welcome}"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            FontFamily="BebasNeue"
+            FontSize="90"
+            FontAttributes="Bold"
+            TextColor="#90FFD73A"
+            Margin="0,10,0,0" />
 
-            <Button
-             Text="{x:Static m:Strings.LoginButton}"
+             <Button
+             Text="{x:Static m:Strings.Login}"
              Command="{Binding NavToLoginCommand}"
-             Style="{StaticResource MainButtonStyle}" />
+             WidthRequest="300"
+             HeightRequest="80"
+             FontAttributes="Bold"
+             FontSize="25"
+             CornerRadius="25"
+             BackgroundColor="#faaffa"
+             TextColor="#FFFFFF90"/>
 
             <Button
              Text="{x:Static m:Strings.Register}"
              Command="{Binding NavToRegisterCommand}"
-             Style="{StaticResource MainButtonStyle}" />
-
+             WidthRequest="300"
+             HeightRequest="80"
+             FontAttributes="Bold"
+             FontSize="25"
+             CornerRadius="25"
+             BackgroundColor="#faaffa"
+             TextColor="#FFFFFF90"/>
         </VerticalStackLayout>
+        <Image Grid.Row="1"
+         Source="shipphoto.png"
+         Aspect="AspectFill"
+         HorizontalOptions="Fill"
+         VerticalOptions="Fill" />
     </Grid>
 </ContentPage>

@@ -6,16 +6,21 @@
     xmlns:m="clr-namespace:battelWar.Models"
     xmlns:vm="clr-namespace:battelWar.ViewModels"
     x:DataType="vm:LoginVM"
+    BackgroundColor="#faaffa"
     IsBusy="{Binding IsBusy}">
     <VerticalStackLayout
         Padding="30"
         Spacing="25"
         VerticalOptions="Center">
         <Label
-            FontAttributes="Bold"
-            FontSize="32"
-            HorizontalOptions="Center"
-            Text="{x:Static m:Strings.LoginTitle}" />
+         HorizontalOptions="Center"
+         VerticalOptions="Center"
+         FontFamily="BebasNeue"
+         FontSize="90"
+         FontAttributes="Bold"
+         TextColor="#affaba"
+         Margin="0,10,0,0"             
+         Text="{x:Static m:Strings.LoginTitle}" />
         <Label
             FontAttributes="Bold"
             FontFamily="MaterialSymbols"
@@ -31,6 +36,7 @@
                 ClearButtonVisibility="WhileEditing"
                 FontSize="18"
                 Placeholder="{x:Static m:Strings.Email}"
+                PlaceholderColor="#affaba"
                 ReturnType="Next"
                 Text="{Binding Email}"
                 TextColor="Blue" />
@@ -50,7 +56,9 @@
                     IsPassword="{Binding IsPassword}"
                     Placeholder="{x:Static m:Strings.PasswordLabel}"
                     ReturnType="Done"
+                     PlaceholderColor="#affaba"
                     Text="{Binding Password}"
+                    
                     TextColor="Blue"
                     VerticalOptions="Center" />
                 <Button
@@ -67,6 +75,7 @@
             </Grid>
         </Border>
         <Button
+            BackgroundColor="#aef2b9"
             Command="{Binding LoginCommand}"
             CornerRadius="8"
             FontSize="18"

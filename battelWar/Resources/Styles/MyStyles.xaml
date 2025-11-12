@@ -13,3 +13,4 @@
         <Setter Property="BorderColor" Value="{AppThemeBinding Dark=White, Light=Black}" />
     </Style>
 </ResourceDictionary>
+    

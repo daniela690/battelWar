@@ -1,11 +1,11 @@
 ﻿using battelWar.Models;
-using battelWar.ModelsLogic;
+using battelWar.ModelLogic;
 using CommunityToolkit.Maui.Alerts;
 using Plugin.CloudFirestore;
 
 
 
-namespace TicTacTow25.ModelsLogic
+namespace battelWar.ModelsLogic
 {
     internal class Games : GamesModel
     {
@@ -24,6 +24,15 @@ namespace TicTacTow25.ModelsLogic
         {
 
         }
+        private void OnGameDeleted(object? sender, EventArgs e)
+        {
+            MainThread.InvokeOnMainThreadAsync(() =>
+            {
+                Toast.Make(Strings.GameDeleted, CommunityToolkit.Maui.Core.ToastDuration.Long, 14).Show();
+            });
+        }
+
+      
         public void AddSnapshotListener()
         {
             ilr = fbd.AddSnapshotListener(Keys.GamesCollection, OnChange!);

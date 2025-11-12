@@ -17,6 +17,7 @@ namespace battelWar
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold"); 
                     fonts.AddFont("MaterialSymbolsOutlined.ttf", "MaterialSymbols");
+                    fonts.AddFont("BebasNeue-Regular.ttf", "BebasNeue");
                 });
 
 #if DEBUG

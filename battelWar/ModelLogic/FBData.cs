@@ -2,11 +2,12 @@
 using Firebase.Auth;
 using Firebase.Auth.Providers;
 using Plugin.CloudFirestore;
+using System.Text.RegularExpressions;
 
 
 namespace battelWar.ModelLogic
 {
-    partial class FBData : FBDataModel
+    public class FBData : FBDataModel
     {
         
         public override async void CreateUserWithEmailAndPasswordAsync(string email, string password, string name, Action<System.Threading.Tasks.Task> OnComplete)
@@ -22,7 +23,7 @@ namespace battelWar.ModelLogic
             IDocumentReference dr = string.IsNullOrEmpty(id) ? fs.Collection(collectonName).Document() : fs.Collection(collectonName).Document(id);
             dr.SetAsync(obj).ContinueWith(OnComplete);
             return dr.Id;
-        }
+        }      
         public override IListenerRegistration AddSnapshotListener(string collectonName, Plugin.CloudFirestore.QuerySnapshotHandler OnChange)
         {
             ICollectionReference cr = fs.Collection(collectonName);
@@ -39,8 +40,17 @@ namespace battelWar.ModelLogic
             IQuerySnapshot qs = await cr.WhereEqualsTo(fName, fValue).GetAsync();
             OnComplete(qs);
         }
+        public override async void UpdateFields(string collectonName, string id, Dictionary<string, object> dict, Action<Task> OnComplete)
+        {
+            IDocumentReference dr = fs.Collection(collectonName).Document(id);
+            await dr.UpdateAsync(dict).ContinueWith(OnComplete);
+        }
+        public override async void DeleteDocument(string collectonName, string id, Action<Task> OnComplete)
+        {
+            IDocumentReference dr = fs.Collection(collectonName).Document(id);
+            await dr.DeleteAsync().ContinueWith(OnComplete);
+        }
 
-       
         public override string IdentifyFireBaseError(Task task)
         {
             string message = task!.Exception!.InnerException!.Message!;
