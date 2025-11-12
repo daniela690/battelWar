@@ -7,10 +7,28 @@
               BackgroundColor="#faaffa"
              x:DataType="vm:RegisterVM">
     <VerticalStackLayout Spacing="25" Margin="10">
-        <Entry  Placeholder="{x:Static m:Strings.Name}" Text="{Binding Name}"/>
-        <Entry  Placeholder="{x:Static m:Strings.Password}" Text="{Binding Password}"/>
-        <Entry  Placeholder="{x:Static m:Strings.Email}" Text="{Binding Email}"/>
+        <Label
+          HorizontalOptions="Center"
+          VerticalOptions="Center"
+          FontFamily="BebasNeue"
+          FontSize="90"
+          FontAttributes="Bold"
+          TextColor="#affaba"
+          Margin="0,10,0,0"             
+          Text="{x:Static m:Strings.Register}"/>
 
-        <Button Text="{x:Static m:Strings.Register}" Command="{Binding RegisterCommand}"/>
+        <Entry  Placeholder="{x:Static m:Strings.Name}"  Text="{Binding Name}"  PlaceholderColor="#affaba"/>
+        <Entry  Placeholder="{x:Static m:Strings.Password}" Text="{Binding Password}" PlaceholderColor="#affaba"/>
+        <Entry  Placeholder="{x:Static m:Strings.Email}" Text="{Binding Email}" PlaceholderColor="#affaba"/>
+
+        <Button 
+         Text="{x:Static m:Strings.Register}" 
+         Command="{Binding RegisterCommand}" 
+         BackgroundColor="#aef2b9" 
+         CornerRadius="8"
+         FontSize="18"
+         HeightRequest="50"
+    
+         TextColor="White" />
     </VerticalStackLayout>
 </ContentPage>

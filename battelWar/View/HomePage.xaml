@@ -13,8 +13,8 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        
-        <VerticalStackLayout Padding="30,80" Spacing="40" HorizontalOptions="Center" VerticalOptions="Start">
+
+        <VerticalStackLayout Padding="30,80" Spacing="40" Grid.RowSpan="3" ZIndex="2" HorizontalOptions="Center" VerticalOptions="Start">
             <Label
             Text="{x:Static m:Strings.Welcome}"
             HorizontalOptions="Center"
@@ -48,6 +48,7 @@
              TextColor="#FFFFFF90"/>
         </VerticalStackLayout>
         <Image Grid.Row="1"
+         InputTransparent="True"
          Source="shipphoto.png"
          Aspect="AspectFill"
          HorizontalOptions="Fill"
