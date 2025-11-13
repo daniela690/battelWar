@@ -18,8 +18,8 @@ namespace battelWar.ViewModels
         private readonly Games games = new();
         public ICommand AddGameCommand => new Command(AddGame);
         public bool IsBusy => games.IsBusy;
-        public ObservableCollection<GameSize>? GameSizes { get => games.GameSizes; set => games.GameSizes = value; }
-        public GameSize SelectedGameSize { get => games.SelectedGameSize; set => games.SelectedGameSize = value; }
+        public ObservableCollection<string> GameTypes => games.GameTypes!;
+        public string SelectedGameType { get => games.SelectedGameType; set => games.SelectedGameType = value; }
         public ObservableCollection<Game>? GamesList => games.GamesList;
         public Game? SelectGameDetails
         {
@@ -50,6 +50,7 @@ namespace battelWar.ViewModels
         {
             games.OnGameAdded += OnGameAdded;
             games.OnGamesChanged += OnGamesChanged;
+            
         }
 
         private void OnGamesChanged(object? sender, EventArgs e)

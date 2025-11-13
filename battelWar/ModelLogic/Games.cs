@@ -12,9 +12,11 @@ namespace battelWar.ModelsLogic
         internal void AddGame()
         {
             IsBusy = true;
-            Game game = new(SelectedGameSize);
+            Game game = new(SelectedGameType);
             game.SetDocument(OnComplete);
+
         }
+
         private void OnComplete(Task task)
         {
             IsBusy = false;
@@ -33,6 +35,7 @@ namespace battelWar.ModelsLogic
         }
 
       
+
         public void AddSnapshotListener()
         {
             ilr = fbd.AddSnapshotListener(Keys.GamesCollection, OnChange!);

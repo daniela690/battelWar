@@ -8,6 +8,7 @@ namespace battelWar.Models
 {
     public abstract class GameModel
     {
+        public string GameType { get; set; } = string.Empty;
         protected IListenerRegistration? ilr;
         [Ignored]
         public EventHandler? OnGameChanged;
@@ -19,9 +20,8 @@ namespace battelWar.Models
         public string HostName { get; set; } = string.Empty;
         public string GuestName { get; set; } = string.Empty;
         public DateTime Created { get; set; }
-        public int RowSize { get; set; }
-        [Ignored]
-        public string RowSizeName => $"{RowSize} X {RowSize}";
+      
+       
         public bool IsFull { get; set; }
         [Ignored]
         public abstract string OpponentName { get; }

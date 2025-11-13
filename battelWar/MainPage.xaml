@@ -22,12 +22,11 @@
             ColumnDefinitions="*,1.4*"
             ColumnSpacing="5">
             <Picker
-                Title="{x:Static m:Strings.SelectGameSize}"
+                Title="{x:Static m:Strings.SelectGameType}"
                 FontSize="20"
                 HorizontalTextAlignment="Center"
-                ItemDisplayBinding="{Binding DisplayName}"
-                ItemsSource="{Binding GameSizes}"
-                SelectedItem="{Binding SelectedGameSize}" />
+                ItemsSource="{Binding GameTypes}"
+                SelectedItem="{Binding SelectedGameType}" />
             <Button
                 Grid.Column="1"
                 Margin="10"
@@ -56,7 +55,7 @@
                                 Grid.Column="2"
                                 FontSize="20"
                                 HorizontalOptions="Center"
-                                Text="{Binding RowSizeName}" />
+                                Text="{Binding GameType}" />
                         </Grid>
                     </ViewCell>
                 </DataTemplate>

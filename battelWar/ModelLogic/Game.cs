@@ -1,5 +1,6 @@
 ﻿
 using battelWar.Models;
+using CommunityToolkit.Maui.Alerts;
 using Plugin.CloudFirestore;
 
 
@@ -9,11 +10,12 @@ namespace battelWar.ModelLogic
     {
         public override string OpponentName => IsHostUser ? GuestName : HostName;
 
-        public Game(GameSize selectedGameSize)
+        public Game(string selectedGameType)
         {
             HostName = new User().Name;
-            RowSize = selectedGameSize.Size;
+            
             Created = DateTime.Now;
+            GameType = selectedGameType;
         }
         public Game()
         {
@@ -64,6 +66,14 @@ namespace battelWar.ModelLogic
                 IsFull = updatedGame.IsFull;
                 GuestName = updatedGame.GuestName;
                 OnGameChanged?.Invoke(this, EventArgs.Empty);
+            }
+            else
+            {
+                MainThread.InvokeOnMainThreadAsync(() =>
+                {
+                    Shell.Current.Navigation.PopAsync();
+                    Toast.Make(Strings.GameDeleted, CommunityToolkit.Maui.Core.ToastDuration.Long, 14).Show();
+                });
             }
         }
 

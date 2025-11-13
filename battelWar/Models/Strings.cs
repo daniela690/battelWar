@@ -12,13 +12,15 @@
         public const string UserNameLabel = "Username:";
         public const string PasswordLabel = "Password:";
         public const string LoginButton = "Login";
-        public const string AppTitle = "BattelWar    ©Daniela.Y";
+        public const string AppTitle = "BattelShip    ©Daniela.Y";
         public const string AddGame = "Add Game";
         public const string GameSize = "Game Size";
-        public const string SelectGameSize = "Select Game Size";
+        public const string SelectGameType = "Select Game Type";
         public const string Welcome = "Welcome";
         public const string Login = "Login";
         public static string GameDeleted= "Deleted";
         public const string JoinGameErr = "Error joining game";
+        public const string Computer = "Computer";
+        public const string Player = "Player";
     }
 }
