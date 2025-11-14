@@ -11,6 +11,7 @@ namespace battelWar
             //User user = new();
             //Page page = user.IsRegistered ? new Login() : new RegisterV();
             MainPage = new HomePage();
+
         }
     }
 }

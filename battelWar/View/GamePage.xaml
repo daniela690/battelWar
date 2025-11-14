@@ -4,9 +4,11 @@
              x:Class="battelWar.View.GamePage"
               xmlns:vm="clr-namespace:battelWar.ViewModels"
              Title="GamePage"
-              x:DataType="vm:GamePageVM">
+              x:DataType="vm:GamePageVM"
+              BackgroundColor="#89bcfa">
     <VerticalStackLayout>
         <Label HorizontalOptions="Center" Text="{Binding OpponentName}" />
+        <Label HorizontalOptions="Center" Text="{Binding StatusMessage}" Margin="50"/>
         <Label HorizontalOptions="Center" Text="{Binding MyName}" />
     </VerticalStackLayout>
 </ContentPage>

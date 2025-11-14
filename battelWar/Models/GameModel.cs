@@ -15,7 +15,9 @@ namespace battelWar.Models
         [Ignored]
         public EventHandler? OnGameDeleted;
         protected FBData fbd = new();
+        protected abstract GameStatus Status { get; }
         [Ignored]
+        public string StatusMessage => Status.StatusMessage;
         public string Id { get; set; } = string.Empty;
         public string HostName { get; set; } = string.Empty;
         public string GuestName { get; set; } = string.Empty;
@@ -23,6 +25,7 @@ namespace battelWar.Models
       
        
         public bool IsFull { get; set; }
+        public bool IsHostTurn { get; set; } = false;
         [Ignored]
         public abstract string OpponentName { get; }
         [Ignored]

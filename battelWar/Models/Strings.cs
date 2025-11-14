@@ -22,5 +22,7 @@
         public const string JoinGameErr = "Error joining game";
         public const string Computer = "Computer";
         public const string Player = "Player";
+        public const string WaitMessage = "Please wait";
+        public const string PlayMessage = "Play please";
     }
 }

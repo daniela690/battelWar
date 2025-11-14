@@ -13,7 +13,7 @@ using System.Windows.Input;
 
 namespace battelWar.ViewModels
 {
-    internal partial class MainPageVM : ObservableObject
+    public partial class MainPageVM : ObservableObject
     {
         private readonly Games games = new();
         public ICommand AddGameCommand => new Command(AddGame);
@@ -21,20 +21,19 @@ namespace battelWar.ViewModels
         public ObservableCollection<string> GameTypes => games.GameTypes!;
         public string SelectedGameType { get => games.SelectedGameType; set => games.SelectedGameType = value; }
         public ObservableCollection<Game>? GamesList => games.GamesList;
-        public Game? SelectGameDetails
+        public Game? SelectedItem
         {
-            get => games.SelectedGame;
+            get => games.CurrentGame;
 
             set
             {
                 if (value != null)
                 {
                     games.SelectedGame = value;
-
-                    Toast.Make(games.SelectedGame.HostName, ToastDuration.Long).Show();
                     MainThread.InvokeOnMainThreadAsync(() =>
                     {
                         Shell.Current.Navigation.PushAsync(new GamePage(value), true);
+                        SelectedItem = null;
                     });
                 }
             }
@@ -42,8 +41,11 @@ namespace battelWar.ViewModels
 
         private void AddGame()
         {
-            games.AddGame();
-            OnPropertyChanged(nameof(IsBusy));
+            if (!IsBusy)
+            {
+                games.AddGame();
+                OnPropertyChanged(nameof(IsBusy));
+            }
         }
 
         public MainPageVM()
@@ -58,9 +60,13 @@ namespace battelWar.ViewModels
             OnPropertyChanged(nameof(GamesList));
         }
 
-        private void OnGameAdded(object? sender, bool e)
+        private void OnGameAdded(object? sender, Game game)
         {
             OnPropertyChanged(nameof(IsBusy));
+            MainThread.InvokeOnMainThreadAsync(() =>
+            {
+                Shell.Current.Navigation.PushAsync(new GamePage(game), true);
+            });
         }
         internal void AddSnapshotListener()
         {

@@ -9,6 +9,9 @@ namespace battelWar.ModelLogic
     public class Game : GameModel
     {
         public override string OpponentName => IsHostUser ? GuestName : HostName;
+        protected override GameStatus Status => IsHostUser && IsHostTurn || !IsHostUser && !IsHostTurn ?
+           new GameStatus { CurrentStatus = GameStatus.Status.Play } :
+           new GameStatus { CurrentStatus = GameStatus.Status.Wait };
 
         public Game(string selectedGameType)
         {

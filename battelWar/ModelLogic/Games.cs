@@ -7,20 +7,26 @@ using Plugin.CloudFirestore;
 
 namespace battelWar.ModelsLogic
 {
-    internal class Games : GamesModel
+    public class Games : GamesModel
     {
-        internal void AddGame()
+        public void AddGame()
         {
             IsBusy = true;
-            Game game = new(SelectedGameType);
-            game.SetDocument(OnComplete);
+           
+            currentGame = new(SelectedGameType)
+            {
+                IsHostUser = true
+            };
+           
+            currentGame.OnGameDeleted += OnGameDeleted;
+            currentGame.SetDocument(OnComplete);
 
         }
 
         private void OnComplete(Task task)
         {
             IsBusy = false;
-            OnGameAdded?.Invoke(this, task.IsCompletedSuccessfully);
+            OnGameAdded?.Invoke(this,currentGame!);
         }
         public Games()
         {
@@ -36,11 +42,11 @@ namespace battelWar.ModelsLogic
 
       
 
-        public void AddSnapshotListener()
+        public override void AddSnapshotListener()
         {
             ilr = fbd.AddSnapshotListener(Keys.GamesCollection, OnChange!);
         }
-        public void RemoveSnapshotListener()
+        public override void RemoveSnapshotListener()
         {
             ilr?.Remove();
         }

@@ -6,13 +6,15 @@
     xmlns:vm="clr-namespace:battelWar.ViewModels"
     xmlns:m="clr-namespace:battelWar.Models"
     x:DataType="vm:MainPageVM"
+     BackgroundColor="#89bcfa"
     IsBusy="{Binding IsBusy}">
-    <Shell.TitleView>
-        <HorizontalStackLayout FlowDirection="LeftToRight">
+    <Shell.TitleView >
+        <HorizontalStackLayout   BackgroundColor="#89bcfa" FlowDirection="LeftToRight">
             <Label
+                BackgroundColor="#89bcfa"
                 FontAttributes="Bold"
                 FontSize="Medium"
-                Text="{x:Static m:Strings.AppTitle}"
+                Text="{x:Static m:Strings.AppTitle}"  TextColor="GreenYellow"
                 VerticalTextAlignment="Center" />
         </HorizontalStackLayout>
     </Shell.TitleView>
@@ -25,17 +27,26 @@
                 Title="{x:Static m:Strings.SelectGameType}"
                 FontSize="20"
                 HorizontalTextAlignment="Center"
+                FontFamily="BebasNeue"
+                 TextColor="#FFFFFFAA"
                 ItemsSource="{Binding GameTypes}"
                 SelectedItem="{Binding SelectedGameType}" />
             <Button
                 Grid.Column="1"
                 Margin="10"
-                Command="{Binding AddGameCommand}"
-                FontSize="Body"
+                Command="{Binding AddGameCommand}"                
                 HorizontalOptions="Fill"
+                
+                
+                 FontAttributes="Bold"
+                 FontSize="25"
+                 CornerRadius="25"
+                 BackgroundColor="#faaffa"
+                 TextColor="#FFFFFF90"
+                 FontFamily="BebasNeue"
                 Text="{x:Static m:Strings.AddGame}" />
         </Grid>
-        <ListView ItemsSource="{Binding GamesList}"   SelectedItem="{Binding SelectGameDetails}">
+        <ListView ItemsSource="{Binding GamesList}"   SelectedItem="{Binding SelectedItem}">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="m:GameModel">
                     <ViewCell>
