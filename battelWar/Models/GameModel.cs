@@ -30,6 +30,7 @@ namespace battelWar.Models
         public abstract string OpponentName { get; }
         [Ignored]
         public string MyName { get; set; } = new User().Name;
+        [Ignored]
         public bool IsHostUser { get; set; }
         public abstract void SetDocument(Action<Task> OnComplete);
         public abstract void RemoveSnapshotListener();

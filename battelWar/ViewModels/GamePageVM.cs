@@ -2,6 +2,7 @@
 using battelWar.Models;
 using battelWar.ModelLogic;
 using CommunityToolkit.Maui.Alerts;
+using Android.Util;
 
 namespace battelWar.ViewModels
 {
@@ -15,6 +16,7 @@ namespace battelWar.ViewModels
         {
             game.OnGameChanged += OnGameChanged;
             this.game = game;
+            Console.WriteLine("########### - IsHostUser =" + game.IsHostUser);
             if (!game.IsHostUser)
                 game.UpdateGuestUser(OnComplete);
         }

@@ -8,6 +8,7 @@
               BackgroundColor="#89bcfa">
     <VerticalStackLayout>
         <Label HorizontalOptions="Center" Text="{Binding OpponentName}" />
+        <Grid x:Name="BoardGrid" Padding="5" RowSpacing="1" ColumnSpacing="1" />
         <Label HorizontalOptions="Center" Text="{Binding StatusMessage}" Margin="50"/>
         <Label HorizontalOptions="Center" Text="{Binding MyName}" />
     </VerticalStackLayout>
