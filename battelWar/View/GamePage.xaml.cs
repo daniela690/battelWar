@@ -1,5 +1,6 @@
 using battelWar.ModelLogic;
 using battelWar.ViewModels;
+using battelWar.Models;
 namespace battelWar.View;
 
 
@@ -7,11 +8,17 @@ namespace battelWar.View;
 public partial class GamePage : ContentPage
 {
     private readonly GamePageVM gpVM;
-    internal GamePage(Game game)
+    public GamePage(Game game)
 	{
 		InitializeComponent();
         gpVM = new GamePageVM(game);
         BindingContext = gpVM;
+        ShipSizePicker.ItemsSource = new int[] { 2, 3, 4, 5 };
+        ShipSizePicker.SelectedIndex = 0;     
+        {
+            if (ShipSizePicker.SelectedItem != null)
+                gpVM.SelectedShipSize = (int)ShipSizePicker.SelectedItem;
+        };
         CreateBoard();
     }
     protected override void OnAppearing()
@@ -39,17 +46,31 @@ public partial class GamePage : ContentPage
         {
             for (int col = 0; col < size; col++)
             {
-                var cell = new Frame
+                CellModel cell = gpVM.Board.Board[row, col];
+                Button btn = new ()
                 {
                     WidthRequest = 30,
                     HeightRequest = 30,
                     BackgroundColor = Colors.LightBlue,
-                    BorderColor = Colors.Black,
-                    Padding = 0
+                    BindingContext = cell
                 };
 
-                BoardGrid.Add(cell, col, row);
+                btn.Clicked += CellClicked;
+                BoardGrid.Add(btn, col, row);
             }
         }
+    }
+    private void CellClicked(object? sender, EventArgs e)
+    {
+        Button btn = (Button)sender!;
+        CellModel cell = (CellModel)btn.BindingContext;
+
+       
+
+        // מניחים ספינה אנכית
+        bool placed = gpVM.PlaceShip(cell.Row, cell.Col, vertical: true);
+
+        if (placed)
+            btn.BackgroundColor = Colors.DarkBlue;
     }
 }

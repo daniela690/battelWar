@@ -18,11 +18,12 @@
         public const string SelectGameType = "Select Game Type";
         public const string Welcome = "Welcome";
         public const string Login = "Login";
-        public static string GameDeleted= "Deleted";
+        public static string GameDeleted = "Deleted";
         public const string JoinGameErr = "Error joining game";
         public const string Computer = "Computer";
         public const string Player = "Player";
         public const string WaitMessage = "Please wait";
         public const string PlayMessage = "Play please";
+        public const string PickShip = "Choose Ship Size";
     }
 }
