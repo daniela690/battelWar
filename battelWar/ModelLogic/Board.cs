@@ -1,12 +1,77 @@
 ﻿using battelWar.Models;
+using System.Collections.Generic;
 
 namespace battelWar.ModelLogic
 {
     public class Board
     {
+        public Fleet Fleet { get; private set; } = new Fleet();
+        private Ship? currentShip = null;
+
+        // קליק על תא בלוח
+        public bool TryPlaceCell(BoardModel board, int row, int col, int shipLength)
+        {
+            if (!IsInside(board, row, col)) return false;
+
+            CellModel clickedCell = board.Board[row, col];
+
+            if (!clickedCell.IsClickable) return false;
+
+            if (currentShip == null)
+            {
+                // קליק ראשון – יצירת ספינה זמנית
+                ShipModel model = new ShipModel(shipLength);
+                currentShip = new Ship(model);
+                currentShip.Cells.Add(clickedCell);
+                return true;
+            }
+            else
+            {
+                int currentIndex = currentShip.Cells.Count;
+                CellModel previousCell = currentShip.Cells[currentIndex - 1];
+
+                if (!currentShip.CanAddCell(previousCell, clickedCell, currentIndex))
+                    return false;
+
+                currentShip.Cells.Add(clickedCell);
+
+                if (currentShip.Cells.Count == 2)
+                    currentShip.SetDirection();
+
+                if (currentShip.Cells.Count == currentShip.Length)
+                {
+                    // ספינה מלאה – מוסיפים ל-Fleet
+                    ShipModel shipModel = new ShipModel(currentShip.Length)
+                    {
+                        Cells = new List<CellModel>(currentShip.Cells),
+                        IsVertical = currentShip.IsVertical
+                    };
+
+                    Fleet.AddShip(shipModel);
+
+                    // נעילת התאים
+                    foreach (CellModel cell in currentShip.Cells)
+                    {
+                        cell.IsOccupied = true;
+                        cell.IsClickable = false;
+                    }
+
+                    // חסימת תאים מסביב
+                    BlockAround(board, currentShip.Cells);
+
+                    // אפס ספינה זמנית
+                    currentShip = null;
+                }
+
+                return true;
+            }
+        }
+
+        // הצבת ספינה לפי התחלה וכיוון (ללא קליקים)
         public bool TryPlaceShip(BoardModel board, int startRow, int startCol, int length, bool vertical)
         {
-            // בדיקות חוקיות
+            List<CellModel> tempCells = new List<CellModel>();
+
             for (int i = 0; i < length; i++)
             {
                 int r = startRow + (vertical ? i : 0);
@@ -16,56 +81,54 @@ namespace battelWar.ModelLogic
 
                 CellModel cell = board.Board[r, c];
                 if (cell.IsOccupied || cell.IsBlocked) return false;
+
+                tempCells.Add(cell);
             }
 
-            // סימון תאי הספינה
-            for (int i = 0; i < length; i++)
+            foreach (CellModel cell in tempCells)
             {
-                int r = startRow + (vertical ? i : 0);
-                int c = startCol + (vertical ? 0 : i);
-
-                CellModel cell = board.Board[r, c];
                 cell.IsOccupied = true;
                 cell.IsClickable = false;
             }
 
-            // חסימת הסביבה
-            BlockAround(board, startRow, startCol, length, vertical);
+            BlockAround(board, tempCells);
+
+            // יצירת ShipModel והוספה ל-Fleet
+            ShipModel shipModel = new ShipModel(length)
+            {
+                Cells = tempCells,
+                IsVertical = vertical
+            };
+            Fleet.AddShip(shipModel);
 
             return true;
         }
 
-        private void BlockAround(BoardModel board, int row, int col, int length, bool vertical)
+        // חסימת תאים מסביב לספינה
+        private void BlockAround(BoardModel board, List<CellModel> cells)
         {
-            int minR = row - 1;
-            int maxR = row + (vertical ? length : 1);
-            int minC = col - 1;
-            int maxC = col + (vertical ? 1 : length);
-
-            for (int r = minR; r <= maxR; r++)
+            foreach (CellModel cell in cells)
             {
-                for (int c = minC; c <= maxC; c++)
+                for (int r = cell.Row - 1; r <= cell.Row + 1; r++)
                 {
-                    if (!IsInside(board, r, c))
-                        continue;
+                    for (int c = cell.Col - 1; c <= cell.Col + 1; c++)
+                    {
+                        if (!IsInside(board, r, c)) continue;
 
-                    CellModel cell = board.Board[r, c];
+                        CellModel blockCell = board.Board[r, c];
 
-                    if (cell.IsOccupied)
-                        continue;
+                        if (cells.Contains(blockCell) || blockCell.IsOccupied) continue;
 
-                    cell.IsBlocked = true;
-                    cell.IsClickable = false;
+                        blockCell.IsBlocked = true;
+                        blockCell.IsClickable = false;
+                    }
                 }
             }
         }
 
         private bool IsInside(BoardModel board, int row, int col)
         {
-            return row >= 0 && col >= 0 && row < board.Size && col < board.Size;
+            return row >= 0 && row < board.Size && col >= 0 && col < board.Size;
         }
     }
-} 
-    
-
-  
+}

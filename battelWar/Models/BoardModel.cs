@@ -22,5 +22,13 @@
                 }
             }
         }
+        public CellModel? GetCell(int row, int col)
+        {
+            if (row >= 0 && row < Size && col >= 0 && col < Size)
+            {
+                return Board[row, col];
+            }
+            return null;
+        }
     }
 }
