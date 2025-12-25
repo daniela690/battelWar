@@ -1,61 +1,44 @@
-﻿using battelWar.Models;
+﻿
 
-namespace battelWar.ModelLogic
+using battelWar.Models;
+using static battelWar.Models.GameModel;
+
+namespace battelWar.ModelsLogic
 {
-    public class Ship
+    public class Ship : ShipModel
     {
-        private ShipModel model;
-        public Ship(ShipModel shipModel)
-        {
-            model = shipModel;
-        }
-        public List<CellModel> Cells => model.Cells;
-        public int Length => model.Length;
-        public bool IsVertical
-        {
-            get => model.IsVertical;
-            set => model.IsVertical = value;
-        }
-        public bool IsSunk
-        {
-            get
-            {
-                foreach (CellModel cell in Cells)
-                {
-                    if (!cell.IsOccupied)
-                        return false;
-                }
-                return true;
-            }
-        }
-        public bool CanAddCell(CellModel previousCell, CellModel newCell, int currentIndex)
-        {
-            if (currentIndex == 0) return true;
+        private new readonly List<Point> lstHits = new List<Point>();
+        private Items[,]? board; // הפניה ללוח כדי לעדכן פגיעות
 
-            if (currentIndex == 1)
-            {
-                bool isAdjacent = (newCell.Row == previousCell.Row && (newCell.Col == previousCell.Col + 1 || newCell.Col == previousCell.Col - 1))
-                    || (newCell.Col == previousCell.Col && (newCell.Row == previousCell.Row + 1 || newCell.Row == previousCell.Row - 1));
-                return isAdjacent;
-            }
-            else
-            {
-                if (IsVertical)
-                {
-                    return newCell.Col == previousCell.Col && (newCell.Row == previousCell.Row + 1 || newCell.Row == previousCell.Row - 1);
-                }
-                else
-                {
-                    return newCell.Row == previousCell.Row && (newCell.Col == previousCell.Col + 1 || newCell.Col == previousCell.Col - 1);
-                }
-            }
-        }
-        public void SetDirection()
+        public Ship(int size, Items[,]? gameBoard = null) : base(size)
         {
-            if (Cells.Count >= 2)
+            Size = size;
+            board = gameBoard;
+        }
+        public bool HitPart(Point hitPoint, out bool HitAll)
+        {
+            if (!lstHits.Contains(hitPoint))
+                lstHits.Add(hitPoint);
+
+            // עדכון הלוח אם קיים
+            if (board != null)
             {
-                IsVertical = Cells[0].Col == Cells[1].Col;
+                board[(int)hitPoint.X, (int)hitPoint.Y] = Items.Ship; // אפשר לשנות ל-Hit אם מוסיפים סוג חדש
             }
+
+            HitAll = lstHits.Count >= Size;
+            return true;
+        }
+        public override bool HitPart(out bool HitAll)
+        {
+            HitAll = lstHits.Count >= Size;
+            return true;
+        }
+        /// בדיקה אם נקודה ספציפית כבר נפגעה
+        public bool IsHit(Point p)
+        {
+            return lstHits.Contains(p);
         }
     }
 }
+

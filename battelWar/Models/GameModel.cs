@@ -4,6 +4,7 @@ using Plugin.CloudFirestore;
 using Plugin.CloudFirestore.Attributes;
 
 
+
 namespace battelWar.Models
 {
     public abstract class GameModel
@@ -36,5 +37,13 @@ namespace battelWar.Models
         public abstract void RemoveSnapshotListener();
         public abstract void AddSnapshotListener();
         public abstract void DeleteDocument(Action<System.Threading.Tasks.Task> OnComplete);
+        protected const int BoardSize = 12;
+        protected Navy navy = new();
+        public enum Items { Empty, Border, Ship }
+        protected Items[,] board = new Items[BoardSize, BoardSize];
+        protected ShipFactory? shipFactory;
+        public  bool PlaceShipPart(Point shipPosition, Orientations orientation) => shipFactory!.PlaceShipPart(shipPosition, orientation);
+        public abstract void AddShip(int size);
+       
     }
 }

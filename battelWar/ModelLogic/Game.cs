@@ -1,5 +1,6 @@
 ﻿
 using battelWar.Models;
+using battelWar.ModelsLogic;
 using CommunityToolkit.Maui.Alerts;
 using Plugin.CloudFirestore;
 
@@ -16,13 +17,28 @@ namespace battelWar.ModelLogic
         public Game(string selectedGameType)
         {
             HostName = new User().Name;
-            
+            shipFactory = new(board);
+            shipFactory.OnShipCompleted += OnShipCompleted;
             Created = DateTime.Now;
             GameType = selectedGameType;
         }
+
         public Game()
         {
         }
+
+        public override void AddShip(int size)
+        {
+            shipFactory!.CurrentShipSize = size;
+        }
+
+        private void OnShipCompleted(object? sender, Ship ship)
+        {
+            navy.AddShip(ship);
+        }
+
+       
+      
         public override void SetDocument(Action<System.Threading.Tasks.Task> OnComplete)
         {
             Id = fbd.SetDocument(this, Keys.GamesCollection, Id, OnComplete);
@@ -84,6 +100,7 @@ namespace battelWar.ModelLogic
         {
             fbd.DeleteDocument(Keys.GamesCollection, Id, OnComplete);
         }
+
 
 
     }

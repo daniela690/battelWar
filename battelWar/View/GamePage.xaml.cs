@@ -46,7 +46,7 @@ public partial class GamePage : ContentPage
         {
             for (int col = 0; col < size; col++)
             {
-                CellModel cell = gpVM.Board.Board[row, col];
+                CellModel cell = gpVM.Cell[row, col];
                 Button btn = new ()
                 {
                     WidthRequest = 30,
@@ -68,7 +68,7 @@ public partial class GamePage : ContentPage
        
 
         // מניחים ספינה אנכית
-        bool placed = gpVM.PlaceShip(cell.Row, cell.Col, vertical: true);
+        bool placed = gpVM.PlaceShip(cell.Row, cell.Col);
 
         if (placed)
             btn.BackgroundColor = Colors.DarkBlue;

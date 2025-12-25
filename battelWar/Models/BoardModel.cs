@@ -3,18 +3,19 @@
     public class BoardModel
     {
         public int Size { get; }
-        public CellModel[,] Board { get; }
+        public CellModel[,] Cells { get; }
+        public BoardModel Board { get; internal set; }
 
         public BoardModel(int size = 12)
         {
             Size = size;
-            Board = new CellModel[size, size];
+            Cells = new CellModel[size, size];
 
             for (int r = 0; r < size; r++)
             {
                 for (int c = 0; c < size; c++)
                 {
-                    Board[r, c] = new CellModel
+                    Cells[r, c] = new CellModel
                     {
                         Row = r,
                         Col = c
@@ -26,7 +27,7 @@
         {
             if (row >= 0 && row < Size && col >= 0 && col < Size)
             {
-                return Board[row, col];
+                return Cells[row, col];
             }
             return null;
         }

@@ -1,74 +1,61 @@
 ﻿using battelWar.Models;
-using System.Collections.Generic;
-
+using battelWar.ModelsLogic;
 namespace battelWar.ModelLogic
 {
     public class Board
     {
-        public Fleet Fleet { get; private set; } = new Fleet();
+        public BoardModel BoardModel { get; private set; }
+        public Navy Navy { get; private set; } = new Navy();
         private Ship? currentShip = null;
-
-        // קליק על תא בלוח
-        public bool TryPlaceCell(BoardModel board, int row, int col, int shipLength)
+        public Board(int size = 12) // ברירת מחדל 12
         {
-            if (!IsInside(board, row, col)) return false;
-
-            CellModel clickedCell = board.Board[row, col];
-
-            if (!clickedCell.IsClickable) return false;
-
-            if (currentShip == null)
-            {
-                // קליק ראשון – יצירת ספינה זמנית
-                ShipModel model = new ShipModel(shipLength);
-                currentShip = new Ship(model);
-                currentShip.Cells.Add(clickedCell);
-                return true;
-            }
-            else
-            {
-                int currentIndex = currentShip.Cells.Count;
-                CellModel previousCell = currentShip.Cells[currentIndex - 1];
-
-                if (!currentShip.CanAddCell(previousCell, clickedCell, currentIndex))
-                    return false;
-
-                currentShip.Cells.Add(clickedCell);
-
-                if (currentShip.Cells.Count == 2)
-                    currentShip.SetDirection();
-
-                if (currentShip.Cells.Count == currentShip.Length)
-                {
-                    // ספינה מלאה – מוסיפים ל-Fleet
-                    ShipModel shipModel = new ShipModel(currentShip.Length)
-                    {
-                        Cells = new List<CellModel>(currentShip.Cells),
-                        IsVertical = currentShip.IsVertical
-                    };
-
-                    Fleet.AddShip(shipModel);
-
-                    // נעילת התאים
-                    foreach (CellModel cell in currentShip.Cells)
-                    {
-                        cell.IsOccupied = true;
-                        cell.IsClickable = false;
-                    }
-
-                    // חסימת תאים מסביב
-                    BlockAround(board, currentShip.Cells);
-
-                    // אפס ספינה זמנית
-                    currentShip = null;
-                }
-
-                return true;
-            }
+            BoardModel = new BoardModel(size);
         }
+        //public bool PlaceCell(int row, int col, int shipLength)
+        //{
+        //    if (!IsInside(row, col)) return false;
 
-        // הצבת ספינה לפי התחלה וכיוון (ללא קליקים)
-        public bool TryPlaceShip(BoardModel board, int startRow, int startCol, int length, bool vertical)
+        //    CellModel clickedCell = BoardModel.Cells[row, col];
+
+        //    if (!clickedCell.IsClickable) return false;
+
+        //    if (currentShip == null)
+        //    {
+        //        currentShip = new Ship(shipLength);
+        //        currentShip.Cells = new List<CellModel> { clickedCell };
+        //        return true;
+        //    }
+
+        //    int currentIndex = currentShip.Cells.Count;
+        //    CellModel previousCell = currentShip.Cells[currentIndex - 1];
+
+        //    if (!currentShip.CanAddCell(previousCell, clickedCell, currentIndex))
+        //        return false;
+
+        //    currentShip.Cells.Add(clickedCell);
+
+        //    if (currentShip.Cells.Count == 2)
+        //        currentShip.SetDirection();
+
+        //    if (currentShip.Cells.Count == currentShip.Length)
+        //    {
+        //        Navy.AddShip(currentShip);
+
+        //        foreach (var cell in currentShip.Cells)
+        //        {
+        //            cell.IsOccupied = true;
+        //            cell.IsClickable = false;
+        //        }
+
+        //        BlockAround(currentShip.Cells);
+
+        //        currentShip = null;
+        //    }
+
+        //    return true;
+        //}
+
+        public bool PlaceShip(int startRow, int startCol, int length, bool vertical)
         {
             List<CellModel> tempCells = new List<CellModel>();
 
@@ -77,33 +64,57 @@ namespace battelWar.ModelLogic
                 int r = startRow + (vertical ? i : 0);
                 int c = startCol + (vertical ? 0 : i);
 
-                if (!IsInside(board, r, c)) return false;
+                if (!IsInside(r, c)) return false;
 
-                CellModel cell = board.Board[r, c];
+                CellModel cell = BoardModel.Cells[r, c];
                 if (cell.IsOccupied || cell.IsBlocked) return false;
 
                 tempCells.Add(cell);
             }
 
-            foreach (CellModel cell in tempCells)
+            foreach (var cell in tempCells)
             {
                 cell.IsOccupied = true;
                 cell.IsClickable = false;
             }
 
-            BlockAround(board, tempCells);
+            BlockAround(tempCells);
 
-            // יצירת ShipModel והוספה ל-Fleet
-            ShipModel shipModel = new ShipModel(length)
+            Ship ship = new Ship(length)
             {
                 Cells = tempCells,
                 IsVertical = vertical
             };
-            Fleet.AddShip(shipModel);
+            Navy.AddShip(ship);
 
             return true;
         }
 
+        private void BlockAround(List<CellModel> cells)
+        {
+            foreach (var cell in cells)
+            {
+                for (int r = cell.Row - 1; r <= cell.Row + 1; r++)
+                {
+                    for (int c = cell.Col - 1; c <= cell.Col + 1; c++)
+                    {
+                        if (!IsInside(r, c)) continue;
+
+                        CellModel blockCell = BoardModel.Cells[r, c];
+
+                        if (cells.Contains(blockCell) || blockCell.IsOccupied) continue;
+
+                        blockCell.IsBlocked = true;
+                        blockCell.IsClickable = false;
+                    }
+                }
+            }
+        }
+
+        private bool IsInside(int row, int col)
+        {
+            return row >= 0 && row < BoardModel.Size && col >= 0 && col < BoardModel.Size;
+        }
         // חסימת תאים מסביב לספינה
         private void BlockAround(BoardModel board, List<CellModel> cells)
         {
@@ -115,7 +126,7 @@ namespace battelWar.ModelLogic
                     {
                         if (!IsInside(board, r, c)) continue;
 
-                        CellModel blockCell = board.Board[r, c];
+                        CellModel blockCell = board.Cells[r, c];
 
                         if (cells.Contains(blockCell) || blockCell.IsOccupied) continue;
 
